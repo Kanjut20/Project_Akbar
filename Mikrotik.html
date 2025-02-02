@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AkbarWIFI - High Speed Internet</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #7C4DFF;
+            --secondary: #448AFF;
+            --accent: #FF5252;
+            --background: #f8f9fe;
+            --glass: rgba(255, 255, 255, 0.9);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Welcome Animation */
+        .welcome-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: white;
+            z-index: 1000;
+            animation: welcomeFade 2.5s forwards;
+        }
+
+        @keyframes welcomeFade {
+            0% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { opacity: 0; visibility: hidden; }
+        }
+
+        .welcome-text {
+            font-size: 3.5em;
+            animation: textFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes textFloat {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-20px) scale(1.05); }
+        }
+
+        /* Login Container */
+        .login-container {
+            background: var(--glass);
+            padding: 2.5rem;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            width: 90%;
+            max-width: 400px;
+            transform: scale(0);
+            animation: containerEntrance 1s 2s forwards;
+            backdrop-filter: blur(15px);
+        }
+
+        @keyframes containerEntrance {
+            from { transform: scale(0) rotate(-15deg); opacity: 0; }
+            to { transform: scale(1) rotate(0); opacity: 1; }
+        }
+
+        /* Form Elements */
+        .input-group {
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 1.2rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            font-size: 1em;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(124, 77, 255, 0.2);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            border-radius: 15px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(124, 77, 255, 0.3);
+        }
+
+        /* Dashboard */
+        .dashboard {
+            display: none;
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            padding: 2rem;
+            border-radius: 30px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            animation: dashboardEntrance 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        @keyframes dashboardEntrance {
+            from { transform: translateY(100px) scale(0.8); opacity: 0; }
+            to { transform: translateY(0) scale(1); opacity: 1; }
+        }
+
+        /* Speed Test */
+        .speed-test {
+            background: rgba(255,255,255,0.9);
+            padding: 1.5rem;
+            border-radius: 20px;
+            margin: 2rem 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .speed-meter {
+            height: 25px;
+            background: #f0f0f0;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            margin: 1.5rem 0;
+        }
+
+        .speed-progress {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Usage Stats */
+        .usage-stats {
+            display: none;
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            padding: 2rem;
+            border-radius: 30px;
+            width: 90%;
+            max-width: 600px;
+            animation: statsEntrance 0.8s ease-out;
+        }
+
+        @keyframes statsEntrance {
+            from { transform: translateX(100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Animations */
+        .particle {
+            position: absolute;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            animation: particleFloat 20s infinite linear;
+        }
+
+        @keyframes particleFloat {
+            0% { transform: translateY(0) translateX(0); }
+            50% { transform: translateY(-100vh) translateX(100vw); }
+            100% { transform: translateY(0) translateX(0); }
+        }
+
+        /* Loading Animation */
+        .loader {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            display: none;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Welcome Screen -->
+    <div class="welcome-screen">
+        <h1 class="welcome-text">🌟 AkbarWIFI</h1>
+        <p>Ultra High-Speed Internet</p>
+    </div>
+
+    <!-- Login Form -->
+    <div class="login-container" id="loginContainer">
+        <div class="login-header" style="text-align: center; margin-bottom: 2rem;">
+            <h2 style="color: var(--primary); margin-bottom: 1rem;">Welcome Back!</h2>
+            <p style="color: #666;">Please login to continue</p>
+        </div>
+        
+        <form id="loginForm">
+            <div class="input-group">
+                <input type="text" placeholder="Username" required>
+            </div>
+            <div class="input-group">
+                <input type="password" placeholder="Password" required>
+            </div>
+            <button type="submit" class="login-btn">
+                <span class="btn-text">Connect Now</span>
+                <div class="loader"></div>
+            </button>
+        </form>
+    </div>
+
+    <!-- Dashboard -->
+    <div class="dashboard" id="dashboard">
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <h2 style="color: var(--primary);">Hello, <span id="usernameDisplay"></span>! 🎉</h2>
+            <p style="color: #666;">Your connection is secure</p>
+        </div>
+
+        <div class="speed-test">
+            <h3 style="color: var(--primary); margin-bottom: 1rem;">🚀 Internet Speed Test</h3>
+            <div class="speed-meter">
+                <div class="speed-progress"></div>
+            </div>
+            <div id="speedResults" style="margin: 1rem 0;"></div>
+            <button onclick="runSpeedTest()" class="login-btn">
+                Start Speed Test
+            </button>
+        </div>
+
+        <button onclick="logout()" class="login-btn" style="background: var(--accent); margin-top: 1rem;">
+            Logout
+        </button>
+    </div>
+
+    <!-- Usage Stats -->
+    <div class="usage-stats" id="usageStats">
+        <h2 style="text-align: center; color: var(--primary); margin-bottom: 2rem;">📊 Usage Statistics</h2>
+        <div id="usageDetails" style="display: grid; gap: 1.5rem; margin: 2rem 0;">
+            <!-- Stats will be populated here -->
+        </div>
+        <button onclick="location.reload()" class="login-btn">
+            Back to Login
+        </button>
+    </div>
+
+    <script>
+        // Login Handler
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = this.querySelector('.login-btn');
+            const loader = btn.querySelector('.loader');
+            const btnText = btn.querySelector('.btn-text');
+            
+            btnText.style.display = 'none';
+            loader.style.display = 'block';
+            
+            setTimeout(() => {
+                document.getElementById('loginContainer').style.display = 'none';
+                document.getElementById('dashboard').style.display = 'block';
+                document.getElementById('usernameDisplay').textContent = this[0].value;
+                loader.style.display = 'none';
+                btnText.style.display = 'block';
+                createParticles();
+            }, 2000);
+        });
+
+        // Speed Test Simulation
+        function runSpeedTest() {
+            const progress = document.querySelector('.speed-progress');
+            const results = document.getElementById('speedResults');
+            
+            progress.style.width = '0%';
+            results.innerHTML = '<p style="text-align: center; color: #666;">⏳ Testing connection...</p>';
+            
+            let currentProgress = 0;
+            const interval = setInterval(() => {
+                currentProgress += Math.random() * 15;
+                progress.style.width = currentProgress + '%';
+                
+                if(currentProgress >= 100) {
+                    clearInterval(interval);
+                    showSpeedResults();
+                }
+            }, 150);
+        }
+
+        function showSpeedResults() {
+            const download = (Math.random() * 150 + 50).toFixed(2);
+            const upload = (Math.random() * 75 + 25).toFixed(2);
+            const latency = (Math.random() * 30 + 10).toFixed(0);
+            
+            document.getElementById('speedResults').innerHTML = `
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+                    <div style="text-align: center; background: rgba(124,77,255,0.1); padding: 1rem; border-radius: 15px;">
+                        <h4>📥 Download</h4>
+                        <p style="font-size: 1.5em; color: var(--primary); font-weight: bold;">${download} Mbps</p>
+                    </div>
+                    <div style="text-align: center; background: rgba(68,138,255,0.1); padding: 1rem; border-radius: 15px;">
+                        <h4>📤 Upload</h4>
+                        <p style="font-size: 1.5em; color: var(--secondary); font-weight: bold;">${upload} Mbps</p>
+                    </div>
+                    <div style="text-align: center; background: rgba(255,82,82,0.1); padding: 1rem; border-radius: 15px;">
+                        <h4>⏱ Latency</h4>
+                        <p style="font-size: 1.5em; color: var(--accent); font-weight: bold;">${latency} ms</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Logout System
+        function logout() {
+            const sessionDuration = Math.floor(Math.random() * 120 + 30);
+            const dataUsed = (Math.random() * 2048).toFixed(2);
+            const peakSpeed = (Math.random() * 200 + 100).toFixed(2);
+            
+            document.getElementById('dashboard').style.display = 'none';
+            document.getElementById('usageStats').style.display = 'block';
+            document.getElementById('usageDetails').innerHTML = `
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
+                    <div style="background: rgba(124,77,255,0.1); padding: 1.5rem; border-radius: 20px;">
+                        <h4>⏳ Session Duration</h4>
+                        <p style="font-size: 2em; color: var(--primary);">${sessionDuration} mins</p>
+                    </div>
+                    <div style="background: rgba(68,138,255,0.1); padding: 1.5rem; border-radius: 20px;">
+                        <h4>📶 Data Used</h4>
+                        <p style="font-size: 2em; color: var(--secondary);">${dataUsed} MB</p>
+                    </div>
+                    <div style="background: rgba(255,82,82,0.1); padding: 1.5rem; border-radius: 20px;">
+                        <h4>🚀 Peak Speed</h4>
+                        <p style="font-size: 2em; color: var(--accent);">${peakSpeed} Mbps</p>
+                    </div>
+                    <div style="background: rgba(124,77,255,0.1); padding: 1.5rem; border-radius: 20px;">
+                        <h4>📅 Last Login</h4>
+                        <p style="font-size: 1.2em; color: var(--primary);">${new Date().toLocaleString()}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Background Particles
+        function createParticles() {
+            const container = document.body;
+            for(let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.width = particle.style.height = Math.random() * 10 + 5 + 'px';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDuration = Math.random() * 15 + 10 + 's';
+                container.appendChild(particle);
+            }
+        }
+    </script>
+</body>
+</html>
